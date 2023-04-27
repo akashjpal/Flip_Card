@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;900&family=Ubuntu&display=swap"
+        rel="stylesheet">
+    <script src="https://kit.fontawesome.com/1bc39c2d09.js" crossorigin="anonymous"></script>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+    <style>
+        body{
+        font-family: "Montserrat",sans-serif;
+        font-size: 25px;
+        text-align: center;
+        }
+        .first{
+            padding: 7% 5%;
+            background-color: #E8A0BF;
+            color: white;
+        }
+        .collapse{
+            margin-left: 20%;
+        }
+        .nav-item{
+            padding-left: 50px;
+        }
+        .navbar-brand{
+            font-family: 'Ubuntu','sans-serif';
+            font-size: 3rem;
+        }
+        
+        /* Proceed Section */
+        .second{
+            padding: 5%;
+        }
+        /* .second > .row > .col1{
+            width: 40%;
+        } */
+        .btn{
+            margin-top: 25%;
+            background-color: #E8A0BF;
+            color: white;
+            font-style: 'Montserrat';
+        }
+        .fa-solid{
+            margin-left: 2px;
+        }
+        p{
+            margin-top: 5%;
+            font-size: 25px;
+        }
+        span{
+            font-weight: bold;
+           
+        }
+        .log{
+            padding: 4px;
+            border: 6px solid white;
+            border-radius: 6px;
+            color: #E8A0BF;
+            font-weight: 700;
+            background-color: rgb(160, 144, 124);
+            /* background-color: white; */
+        }
+
+        
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid first">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <!-- <div class="container-fluid"> -->
+            <a class="navbar-brand" href="#">Flip Card</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link " aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link active" href="#">ScoreBoard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item log1">
+                        <a class="nav-link log" href="Registeration.html">SignUp</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- </div> -->
+            </nav>
+            </div>
+            <div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Score</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% console.log(usersWithSecrets) %>
+                <% if (usersWithSecrets.length> 0) { %>
+                <% usersWithSecrets.forEach(function(user){ %> 
+                <tr>
+                    <td><%=user.name%></td>
+                    <td><%=user.score%></td>
+                </tr>
+                <% }) %>
+                <%}else{%>
+                    <tr>
+                        <td colspan="2">No User Found</td>
+                        
+                    </tr>
+                <%}%>
+                </tbody>
+            </table>
+            </div>
+            
+
+        
+</body>
+</html>

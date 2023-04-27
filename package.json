@@ -1,0 +1,30 @@
+{
+  "name": "card-memory-game",
+  "version": "1.0.0",
+  "description": "PBL Project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Anuj1302/Card-Memory-Game.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Anuj1302/Card-Memory-Game/issues"
+  },
+  "homepage": "https://github.com/Anuj1302/Card-Memory-Game#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "mongoose": "^7.0.3",
+    "passport": "^0.6.0",
+    "passport-local-mongoose": "^8.0.0"
+  }
+}

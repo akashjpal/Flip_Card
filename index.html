@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Flip Card Game</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/bb10883579.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+       .button-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff; /* Replace with desired background color */
+  color: #fff; /* Replace with desired text color */
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.button-link:hover {
+  background-color: #0056b3; /* Replace with desired hover background color */
+}
+    </style>
+</head>
+
+<body>
+    
+    <h1>Card Memory Game</h1>
+    <div class="top-section">
+        <div class="timing">
+            <span class="minute">00</span>
+            <span>:</span>
+            <span class="seconds">00</span>
+        </div>
+        <i class="fa-solid fa-arrows-rotate refresh"></i>
+        <a href="/" class="button-link">Home</a>
+    </div>
+    <section id="image-section">
+        <div class="card-group">
+            <div class="card" id="i1">
+                <img class="card-img-top tog i1" src="images/Goku.jpg" alt="i1">
+                <!-- <div class="back-face"></div> -->
+            </div>
+            <div class="card" id="i2">
+                <img src="images/penguin.jpg" class="card-img-top i2 " alt="i2">
+                <!-- <div class="back-face"></div> -->
+            </div>
+            <div class="card" id="i3">
+                <img src="images/cat.jpg" class="card-img-top i3 " alt="i3">
+                <!-- <div class="back-face"></div> -->
+            </div>
+            <div class="card" id="i4">
+                <img src="images/shinchan.jpg" class="card-img-top i4 " alt="i4">
+                <!-- <div class="back-face"></div> -->
+            </div>
+        </div>
+
+        <div class="card-group">
+            <div class="card" id="i5">
+                <img src="images/penguin.jpg" class="card-img-top i5" alt="i5">
+                <!-- <div class="back-face"></div> -->
+
+            </div>
+            <div class="card" id="i6">
+                <img src="images/Goku.jpg" class="card-img-top i6" alt="i6">
+                <!-- <div class="back-face"></div> -->
+            </div>
+            <div class="card" id="i7">
+                <img src="images/kakashi.jpg" class="card-img-top i7" alt="i7">
+                <!-- <div class="back-face"></div> -->
+            </div>
+            <div class="card" id="i8">
+                <img src="images/levi.jpg" class="card-img-top i8" alt="i8">
+                <!-- <div class="back-face"></div> -->
+            </div>
+        </div>
+        <div class="card-group">
+            <div class="card" id="i9">
+                <img src="images/cat.jpg" class="card-img-top i9" alt="i9">
+                <!-- <div class="back-face"></div> -->
+            </div>
+            <div class="card" id="i10">
+                <img src="images/shinchan.jpg" class="card-img-top i10" alt="i10">
+                <!-- <div class="back-face"></div> -->
+            </div>
+            <div class="card" id="i11">
+                <img src="images/levi.jpg" class="card-img-top i11" alt="i11">
+                <!-- <div class="back-face"></div> -->
+            </div>
+            <div class="card" id="i12">
+                <img src="images/kakashi.jpg" class="card-img-top i12" alt="i12">
+                <!-- <div class="back-face"></div> -->
+            </div>
+        </div>
+    </section>
+
+    <section id="congratsSection" class="hidden">
+        <div id="congrats">
+            <img class="imgcongo" src="images/congrats.jpg" alt="Congrats">
+            <form id="myForm" action="">
+                <p class="final">
+                    <span id="final-time">
+                    </span>
+                </p>
+                <input type="submit" class="again" value="Play Again">
+                <!-- <button class="again" type="submit" name="button" value="">Play Again</button> -->
+            </form>
+        </div>
+    </section>
+
+    <script>
+        // const a = prompt("Hello,enter some value")
+        var img = document.querySelectorAll(".card-img-top");
+        for (var i = 0; i < document.querySelectorAll(".card-img-top").length; i++) {
+            img[i].classList.add("tog");
+        };
+
+        const cards = document.querySelectorAll(".card");
+        
+        const final = document.querySelector(".final");
+        const congrats = document.querySelector("#congratsSection");
+        const again = document.querySelector(".again");
+        const totalTime = document.querySelector("#final-time");
+        const seconds = document.querySelector(".seconds");
+        const minute = document.querySelector(".minute");
+        const form = document.getElementById("myForm");
+
+        
+
+        let count = 0;
+
+        let interval;
+        let firstCard, secondCard;
+        let hasFlippedCard = false;
+        let img1, img2;
+        let totalSeconds = 0;
+        let check;
+        let click = -1;
+        let lockBoard = false; //This will not allow 3/4 Consecutive clicks
+        let score ;
+        let finaltime;
+
+
+        // let images = document.querySelectorAll("img");
+
+        for (var i = 0; i < document.querySelectorAll(".card").length; i++) {
+            document.querySelectorAll(".card")[i].addEventListener("click", flipcard);
+            // alert(this.id);
+        }
+
+        function flipcard() {
+            if (lockBoard) {
+                return;
+            }
+            const imgurl = this.querySelector("img");
+            const src = imgurl.getAttribute("src");
+            if (this === firstCard) {
+                return;
+            }
+            document.querySelector("." + this.id).classList.remove("tog");
+            if (!hasFlippedCard) {
+                startTime();
+                firstCard = this;
+                img1 = src;
+                hasFlippedCard = true;
+                return;
+            }
+
+            console.log(src);
+            img2 = src;
+            secondCard = this;
+            if (hasFlippedCard) {
+                if (img1 === img2) {
+                    // startTime();
+
+                    firstCard.removeEventListener("click", flipcard);
+                    secondCard.removeEventListener("click", flipcard);
+                    resetBoard();
+                    count += 2;
+
+                }
+                else {
+                    lockBoard = true;
+                    setTimeout(() => {
+                        firstCard.querySelector("img").classList.add("tog");
+                        secondCard.querySelector("img").classList.add("tog");
+                        resetBoard();
+                    }, 700);
+
+                }
+
+                if (count === 12) {
+                    // alert("Hoorayy! You won");
+                    congrats.classList.replace("hidden", "show");
+                    clearInterval(interval);
+                    finaltime = minute.textContent + ":" + seconds.textContent;
+                    final.innerHTML = "You won in " + finaltime + " time!";
+                    score = finaltime;
+                    
+                    totalTime.textContent = finaltime;
+               
+
+                form.addEventListener("submit", function (event) {
+                    // Prevent default form submission behavior
+                    event.preventDefault();
+                    const form = event.target;
+                    // Get the values from the form inputs
+                    
+
+                    // Perform form validation or other operations with the values
+                    // console.log("Score:", score);
+                    const formData = new FormData(form);
+
+                      fetch("/submit", {
+                        method: "POST",
+                        body: JSON.stringify({ score: score }),
+                        headers: { "Content-Type": "application/json" }
+                    })
+                        .then(response => response.json())
+                        // .then(data => {
+                        //     // Handle response from server
+                        //     // console.log(data);
+                        // })
+                        .catch(error => console.error(error));
+                    // Submit the form
+                    form.submit();
+                });
+            }
+                
+            }
+
+            check = document.querySelector("." + this.id);
+        }
+        again.addEventListener("click", function () {
+            congratsSection.classList.replace("show", "hidden");
+            location.reload();
+        })
+
+        function resetBoard() {
+            lockBoard = false;
+            hasFlippedCard = false;
+            firstCard = null;
+            secondCard = null;
+        }
+
+        function startTime() {
+            if (click === -1) {
+                interval = setInterval(function () {
+                    totalSeconds++;
+                    seconds.innerHTML = pad(parseInt(totalSeconds % 60));
+                    minute.innerHTML = pad(parseInt(totalSeconds / 60));
+                }, 1000);
+            }
+            click = 1;
+        }
+        function pad(val) {
+            const valstring = val + "";
+            if (valstring.length < 2) {
+                return "0" + valstring;
+            }
+            else {
+                return valstring;
+            }
+        }
+        (function shuffle() {
+            cards.forEach((card) => {
+                let randomPos = Math.floor(Math.random() * 12);
+                card.style.order = randomPos;
+            });
+        })();
+
+    </script>
+
+</body>
+
+</html>
